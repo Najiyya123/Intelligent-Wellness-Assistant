@@ -7,16 +7,57 @@ from wellness_assistant import (
     show_progress,
     query_gemma2,
     progress,
-    reminders,   # <- don’t forget to import reminders list
+    reminders,
 )
 
 # ----------------------------
 # Streamlit Page Setup
 # ----------------------------
 st.set_page_config(page_title="Wellness Assistant", page_icon="💬", layout="wide")
+
+# Custom CSS for colors and chat bubbles
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #F9F7F3;
+    }
+    .sidebar .sidebar-content {
+        background-color: #F5B700;
+        color: white;
+    }
+    .chat-bubble-user {
+        background-color: #6B4226;
+        color: white;
+        padding: 10px;
+        border-radius: 15px;
+        margin: 5px 0;
+        max-width: 70%;
+        float: right;
+        clear: both;
+    }
+    .chat-bubble-bot {
+        background-color: #F9F7F3;
+        color: #2E2E2E;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        margin: 5px 0;
+        max-width: 70%;
+        float: left;
+        clear: both;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# ----------------------------
+# Title & Sidebar
+# ----------------------------
 st.title("💬 Wellness Assistant Chatbot")
 
-# Sidebar for info
 st.sidebar.title("⚡ Wellness Assistant")
 st.sidebar.write("Built for CodeFusion Hackathon 2025 🎉")
 st.sidebar.success("Features: Mood, Fitness, Meditation, Reminders, Progress")
@@ -43,7 +84,7 @@ with tab1:
     user_input = st.text_input("Type your message here 👇", key="chat_input")
 
     if st.button("Send", key="chat_button") and user_input:
-        # Route query to the correct backend function
+        # Route query to backend
         if "mood" in user_input.lower():
             reply = analyze_mood(user_input)
 
@@ -52,7 +93,6 @@ with tab1:
 
         elif "meditate" in user_input.lower():
             reply, audio_file = voice_guided_meditation()
-            # Play meditation audio
             with open(audio_file, "rb") as f:
                 st.audio(f.read(), format="audio/mp3")
 
@@ -60,7 +100,6 @@ with tab1:
             reply = set_reminder("Take medicine", "8 PM")
 
         elif "progress" in user_input.lower():
-            # Show progress chart
             labels = ["Mood", "Fitness", "Meditation"]
             values = [
                 len(progress["mood"]),
@@ -77,13 +116,13 @@ with tab1:
         st.session_state.chat_history.append(("You", user_input))
         st.session_state.chat_history.append(("Bot", reply))
 
-    # Display chat history
+    # Display chat history with bubbles
     st.subheader("Chat History")
     for role, msg in st.session_state.chat_history:
         if role == "You":
-            st.markdown(f"👤 **{role}:** {msg}")
+            st.markdown(f"<div class='chat-bubble-user'>{msg}</div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"🤖 **{role}:** {msg}")
+            st.markdown(f"<div class='chat-bubble-bot'>{msg}</div>", unsafe_allow_html=True)
 
 # ----------------------------
 # Progress Tab
@@ -94,7 +133,6 @@ with tab2:
     st.metric("Fitness Plans", len(progress["fitness"]))
     st.metric("Meditations", len(progress["meditation"]))
 
-    # Show chart
     st.bar_chart({
         "Mood": [len(progress["mood"])],
         "Fitness": [len(progress["fitness"])],
