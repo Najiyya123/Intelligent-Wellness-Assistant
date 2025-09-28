@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import os
-os.environ["GROQ_API_KEY"] = "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"
+os.environ["GROQ_API_KEY"] = "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" 
 
 from groq import Groq
 
