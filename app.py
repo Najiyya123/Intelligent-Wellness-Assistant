@@ -1,5 +1,5 @@
 import streamlit as st
-from backend import (
+from wellness_assistant import (
     analyze_mood,
     generate_fitness_plan,
     voice_guided_meditation,
