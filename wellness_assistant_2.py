@@ -97,7 +97,6 @@ while True:
         reply = generate_fitness_plan(user_input)
     elif "meditate" in user_input.lower():
         reply, audio_file = voice_guided_meditation()
-        display(Audio(audio_file, autoplay=True))
     elif "remind" in user_input.lower():
         reply = set_reminder("Take medicine", "8 PM")
     elif "progress" in user_input.lower():
