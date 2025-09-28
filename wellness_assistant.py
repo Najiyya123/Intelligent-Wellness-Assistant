@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import os
-os.environ["GROQ_API_KEY"] = "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"
+os.environ["GROQ_API_KEY"] = "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" 
 
 from groq import Groq
 
@@ -27,7 +27,6 @@ import os
 from groq import Groq
 from gtts import gTTS
 import matplotlib.pyplot as plt
-from IPython.display import Audio, display
 
 # --- API Setup ---
 # Replace with your real API key
@@ -98,7 +97,6 @@ while True:
         reply = generate_fitness_plan(user_input)
     elif "meditate" in user_input.lower():
         reply, audio_file = voice_guided_meditation()
-        display(Audio(audio_file, autoplay=True))
     elif "remind" in user_input.lower():
         reply = set_reminder("Take medicine", "8 PM")
     elif "progress" in user_input.lower():
