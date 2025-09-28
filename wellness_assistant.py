@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1IQbbhZFPuVMrY5sC05-2MbKM5MheYR0b
 """
 
-!pip install groq
-
 import os
 os.environ["GROQ_API_KEY"] = "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"
 
@@ -23,11 +21,6 @@ response = client.chat.completions.create(
 )
 
 print(response.choices[0].message.content)
-
-
-
-# ✅ Install dependencies first
-!pip install groq gTTS matplotlib
 
 # --- Imports ---
 import os
