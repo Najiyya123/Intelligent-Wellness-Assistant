@@ -27,7 +27,6 @@ import os
 from groq import Groq
 from gtts import gTTS
 import matplotlib.pyplot as plt
-from IPython.display import Audio, display
 
 # --- API Setup ---
 # Replace with your real API key
